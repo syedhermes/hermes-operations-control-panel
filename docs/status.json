@@ -1,8 +1,8 @@
 {
   "schema_version": "iw-5.status.v2",
   "title": "Hermes Operations Control Panel",
-  "version_label": "IW-7 internal-only status refresh",
-  "updated": "2026-07-04T11:47:10Z",
+  "version_label": "IW-8 internal-only status refresh with Hermes operations",
+  "updated": "2026-07-04T13:58:43Z",
   "deployment": {
     "state": "live-static-pages",
     "surface": "GitHub Pages",
@@ -12,7 +12,7 @@
   },
   "public_safety": {
     "classification": "public-safe sanitized checkpoint status",
-    "source": "Internal-only refresh from approved sanitized local repository files only",
+    "source": "Internal-only refresh from approved sanitized local repository files plus sanitized Hermes operations summaries.",
     "live_runtime_reads": false,
     "private_data": false,
     "chat_ingestion": false,
@@ -52,6 +52,18 @@
       "label": "Deployment",
       "state": "live-static-pages",
       "summary": "GitHub Pages deployment uses docs/ static files only."
+    },
+    {
+      "id": "hermes-operations-project-status",
+      "label": "Hermes Operations Project Status",
+      "state": "sanitized-summary",
+      "summary": "Approved internal Hermes operations project status is reflected only as public-safe sanitized card summaries."
+    },
+    {
+      "id": "hermes-operations-next-actions",
+      "label": "Hermes Operations Next Actions",
+      "state": "sanitized-summary",
+      "summary": "Approved internal Hermes operations next actions are reflected only as public-safe sanitized card summaries."
     }
   ],
   "cards": [
@@ -153,6 +165,34 @@
       "actions": [
         "Record deployment commit hash after IW-7 push."
       ]
+    },
+    {
+      "id": "hermes-operations-status",
+      "title": "Hermes Operations Status",
+      "state": "sanitized-summary",
+      "summary": "The Hermes Operations workspace is active as a small project-file-based control surface for Syed's internal Hermes operations",
+      "evidence": [
+        "Approved Hermes operations project-status source read locally",
+        "Absolute paths and operational details excluded from public status.json",
+        "No private memory query, chat ingestion, credentials, external API, containers, or runtime modification"
+      ],
+      "actions": [
+        "Keep Hermes operations output limited to sanitized public-safe summaries."
+      ]
+    },
+    {
+      "id": "hermes-operations-next-checkpoint",
+      "title": "Hermes Operations Next Checkpoint",
+      "state": "sanitized-summary",
+      "summary": "First activation candidate:** local synthetic memory layer local synthetic activation",
+      "evidence": [
+        "Approved Hermes operations next-actions source read locally",
+        "No absolute internal path exposed",
+        "Blocked gates remain represented as blocked_items objects"
+      ],
+      "actions": [
+        "Require separate explicit approval before any live adapter, credentialed service, container, or runtime activation."
+      ]
     }
   ],
   "blocked_items": [
@@ -180,7 +220,8 @@
   "next_actions": [
     "Use scripts/refresh_status_snapshot.py for future sanitized status refreshes.",
     "Keep status.json schema changes paired with validator updates.",
-    "Prepare a separate approval gate before any live adapter, tracker, or memory integration."
+    "Prepare a separate approval gate before any live adapter, tracker, or memory integration.",
+    "Keep Hermes operations adapter limited to sanitized summaries unless a separate live-adapter approval gate is opened."
   ],
   "safety_boundary": [
     "No external APIs, CDNs, analytics, backend, or server runtime.",
@@ -201,6 +242,7 @@
     "Next 3 Actions render from sanitized status.json.",
     "Last Updated timestamp renders from sanitized status.json.",
     "Safety Boundary section shows blocked/private gates.",
-    "Everything remains static."
+    "Everything remains static.",
+    "Hermes operations summaries preserve the IW-7 status.json schema and expose no absolute internal paths."
   ]
 }
