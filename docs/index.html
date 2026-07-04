@@ -9,46 +9,91 @@
 </head>
 <body>
   <header class="hero">
-    <p class="eyebrow">Hermes workflow · public-safe static build</p>
+    <p class="eyebrow">Hermes workflow · public-safe static v2</p>
     <h1>Operations Control Panel</h1>
-    <p class="lede">A sanitized checkpoint surface for gateway/dashboard status, layered memory foundation, App Builder progress, blocked items, next actions, and rollback notes.</p>
+    <p class="lede">A live GitHub Pages surface for sanitized Hermes checkpoint status — useful at a glance, searchable, and deliberately sealed away from private/runtime gates.</p>
+    <div class="hero-meta" aria-label="Deployment metadata">
+      <span id="version-label">IW-5 public-safe v2</span>
+      <span id="last-updated">Last updated: loading…</span>
+      <span>Static files only</span>
+    </div>
     <div class="hero-actions">
-      <a href="#cards">View status cards</a>
+      <a href="#system-status">Current status</a>
+      <a href="#cards-title">Search cards</a>
       <a href="status.json">Open status.json</a>
     </div>
   </header>
+
   <main>
+    <section class="status-overview" id="system-status" aria-labelledby="system-status-title">
+      <div class="section-heading compact">
+        <p class="eyebrow">At a glance</p>
+        <h2 id="system-status-title">Current System Status</h2>
+      </div>
+      <div id="system-status-grid" class="status-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="action-strip" aria-labelledby="next-3-title">
+      <div>
+        <p class="eyebrow">Operator checkpoint</p>
+        <h2 id="next-3-title">Next 3 Actions</h2>
+      </div>
+      <ol id="next-3-actions" class="action-list top-actions"></ol>
+    </section>
+
+    <section class="safety-boundary" aria-labelledby="boundary-title">
+      <div class="section-heading compact">
+        <p class="eyebrow">Hard boundary</p>
+        <h2 id="boundary-title">Safety Boundary</h2>
+      </div>
+      <div id="boundary-list" class="boundary-grid"></div>
+    </section>
+
     <section class="safety" aria-labelledby="safety-title">
-      <h2 id="safety-title">Public safety gate</h2>
+      <div class="section-heading compact">
+        <p class="eyebrow">Public safety gate</p>
+        <h2 id="safety-title">Static-only safety checks</h2>
+      </div>
       <div id="safety-grid" class="safety-grid"></div>
     </section>
-    <section aria-labelledby="cards-title">
-      <div class="section-heading">
-        <p class="eyebrow">IW-2 export</p>
-        <h2 id="cards-title">Status cards</h2>
+
+    <section aria-labelledby="cards-title" class="cards-section">
+      <div class="section-heading cards-heading">
+        <div>
+          <p class="eyebrow">IW-5 v2</p>
+          <h2 id="cards-title">Status cards</h2>
+        </div>
+        <label class="search-box">
+          <span>Filter cards</span>
+          <input id="card-search" type="search" placeholder="Search title, state, summary, evidence…" autocomplete="off">
+        </label>
       </div>
+      <p id="filter-count" class="filter-count" aria-live="polite"></p>
       <div id="cards" class="cards"></div>
     </section>
+
     <section class="split">
       <article>
         <h2>Blocked items retained</h2>
         <div id="blocked-items" class="list-panel"></div>
       </article>
       <article>
-        <h2>Next actions</h2>
+        <h2>All next actions</h2>
         <ol id="next-actions" class="action-list"></ol>
       </article>
     </section>
+
     <section class="rollback" aria-labelledby="rollback-title">
       <h2 id="rollback-title">Rollback notes</h2>
       <ul id="rollback-notes"></ul>
     </section>
   </main>
+
   <footer>
-    <span>Static app only. No analytics, CDN, backend, or live runtime reads.</span>
+    <span>Static app only. No analytics, CDN, backend, external APIs, live runtime reads, or private-data gates.</span>
     <span id="updated"></span>
   </footer>
-  <noscript>This app is static. JavaScript is used only to render embedded sanitized status data.</noscript>
+  <noscript>This app is static. JavaScript is used only to render sanitized status data from local files.</noscript>
   <script src="app.js" defer></script>
 </body>
 </html>

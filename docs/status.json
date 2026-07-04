@@ -1,36 +1,63 @@
 {
-  "schema_version": "iw-2.status.v1",
+  "schema_version": "iw-5.status.v2",
   "title": "Hermes Operations Control Panel",
-  "updated": "2026-07-04",
+  "version_label": "IW-5 public-safe v2",
+  "updated": "2026-07-04T02:21:11Z",
+  "deployment": {
+    "state": "live-static-pages",
+    "surface": "GitHub Pages",
+    "url": "https://syedhermes.github.io/hermes-operations-control-panel/",
+    "mode": "static files only",
+    "runtime_dependencies": "none"
+  },
   "public_safety": {
     "classification": "public-safe sanitized checkpoint status",
-    "source": "Generated local Markdown package only",
+    "source": "Sanitized static status export only",
     "live_runtime_reads": false,
     "private_data": false,
     "chat_ingestion": false,
     "credentials": false,
     "memory_queries": false,
-    "external_api_calls": false
+    "external_api_calls": false,
+    "backend_server": false,
+    "analytics": false
   },
-  "source_artifacts": [
-    "README.md",
-    "00-idea-capture.md",
-    "01-design-doc.md",
-    "02-ui-design-brief.md",
-    "03-implementation-spec.md",
-    "04-agent-build-handoff.md",
-    "05-spec-review.md",
-    "preview/index.html"
+  "system_status": [
+    {
+      "id": "hermes-core",
+      "label": "Hermes core",
+      "state": "planned-safe-surface",
+      "summary": "Represented as sanitized checkpoint status only; no Hermes runtime reads or modifications."
+    },
+    {
+      "id": "layered-memory",
+      "label": "Layered memory",
+      "state": "foundation-pass",
+      "summary": "Checkpoint-level foundation status only; no live memory query."
+    },
+    {
+      "id": "app-builder",
+      "label": "App Builder",
+      "state": "pass",
+      "summary": "Static control-panel artifacts generated from sanitized IW package."
+    },
+    {
+      "id": "deployment",
+      "label": "Deployment",
+      "state": "live-static-pages",
+      "summary": "GitHub Pages deployment uses docs/ static files only."
+    }
   ],
   "cards": [
     {
-      "id": "gateway-dashboard",
-      "title": "Gateway / Dashboard",
-      "state": "planned",
-      "summary": "Sanitized status placeholder only; no live gateway or dashboard runtime reads were performed.",
+      "id": "hermes-core-dashboard",
+      "title": "Hermes Core / Dashboard",
+      "state": "planned-safe-surface",
+      "summary": "Sanitized public status surface only; no live Hermes core, gateway, or dashboard runtime reads were performed.",
       "evidence": [
-        "IW-1 package scope",
-        "No Hermes runtime modification"
+        "Static status.json",
+        "No Hermes runtime modification",
+        "No live gateway or dashboard adapter"
       ],
       "actions": [
         "Define allowed public-safe dashboard fields before any live adapter."
@@ -40,10 +67,11 @@
       "id": "layered-memory",
       "title": "Layered Memory",
       "state": "foundation-pass",
-      "summary": "LM-2D and LM-2E are represented only as completed/PASS foundation facts supplied by the operator.",
+      "summary": "Layered memory is shown only as checkpoint-level foundation status supplied in the sanitized export.",
       "evidence": [
-        "Operator-provided checkpoint fact",
-        "No memory queries"
+        "Sanitized checkpoint fact",
+        "No memory queries",
+        "No private recall"
       ],
       "actions": [
         "Keep memory status checkpoint-level until a separate safe adapter is approved."
@@ -53,13 +81,29 @@
       "id": "app-builder",
       "title": "App Builder",
       "state": "pass",
-      "summary": "App Builder Checkpoint 002 and IW-1 generated package are available as local Markdown artifacts with deterministic review.",
+      "summary": "App Builder artifacts are represented as static public files with deterministic client-side rendering.",
       "evidence": [
-        "output/hermes-operations-control-panel/*.md",
-        "preview/index.html"
+        "docs/index.html",
+        "docs/styles.css",
+        "docs/app.js",
+        "docs/status.json"
       ],
       "actions": [
-        "Use this status export as the bridge to the static control-panel app."
+        "Use this static surface as the public handoff for IW checkpoints."
+      ]
+    },
+    {
+      "id": "deployment",
+      "title": "Deployment",
+      "state": "live-static-pages",
+      "summary": "The control panel is deployed as a GitHub Pages static site with no backend, analytics, external APIs, or CDNs.",
+      "evidence": [
+        "GitHub Pages from docs/ on main",
+        "Static files only",
+        "No runtime dependencies"
+      ],
+      "actions": [
+        "Keep deployment static unless a separate public-safe live-adapter gate is approved."
       ]
     },
     {
@@ -77,84 +121,59 @@
       ]
     },
     {
-      "id": "next-actions",
-      "title": "Next Actions",
-      "state": "ready",
-      "summary": "IW-2 status export and IW-3 static app build are complete; IW-4 public deployment depends on a clean safety scan and available GitHub auth.",
-      "evidence": [
-        "python3 app_builder_intake_gate.py generate fixtures/hermes-operations-control-panel.json output/hermes-operations-control-panel",
-        "python3 app_builder_intake_gate.py review output/hermes-operations-control-panel",
-        "python3 app_builder_intake_gate.py preview output/hermes-operations-control-panel output/hermes-operations-control-panel-preview",
-        "python3 -m unittest tests_mvp.py -v",
-        "sha256sum fixtures/hermes-operations-control-panel.json output/hermes-operations-control-panel/*.md output/hermes-operations-control-panel-preview/index.html"
-      ],
-      "actions": [
-        "Run public safety scan before deploy."
-      ]
-    },
-    {
       "id": "rollback-notes",
       "title": "Rollback Notes",
       "state": "documented",
-      "summary": "Rollback remains file/folder based for local phases and commit based for GitHub Pages.",
+      "summary": "Rollback remains commit-based for GitHub Pages and file-based for local static artifacts.",
       "evidence": [
-        "Remove output/hermes-operations-control-panel-status to roll back IW-2 status export.",
-        "Remove output/hermes-operations-control-panel-app to roll back IW-3 static app build.",
-        "For a GitHub Pages rollback, revert the deployment commit or disable Pages in repository settings.",
-        "Re-run python3 -m unittest tests_mvp.py -v after local rollback to verify the App Builder baseline."
+        "Revert the IW-5 commit on main to roll back the live app.",
+        "Disable GitHub Pages only if the whole public surface must be taken offline."
       ],
       "actions": [
-        "Record deployment commit hash if IW-4 deploys."
+        "Record deployment commit hash after IW-5 push."
       ]
     }
   ],
   "blocked_items": [
     {
       "action": "GitHub Issues",
-      "reason": "External tracker sync is out of scope for the local control-panel spec",
+      "reason": "External tracker sync is out of scope for this public-safe static app.",
       "approval_required": "Separate approval required"
     },
     {
       "action": "Notion",
-      "reason": "External workspace sync is out of scope for the local control-panel spec",
+      "reason": "External workspace sync is out of scope for this public-safe static app.",
       "approval_required": "Separate approval required"
     },
     {
       "action": "Linear",
-      "reason": "External planning integration is out of scope for the local control-panel spec",
+      "reason": "External planning integration is out of scope for this public-safe static app.",
       "approval_required": "Separate approval required"
     }
   ],
   "next_actions": [
-    "python3 app_builder_intake_gate.py generate fixtures/hermes-operations-control-panel.json output/hermes-operations-control-panel",
-    "python3 app_builder_intake_gate.py review output/hermes-operations-control-panel",
-    "python3 app_builder_intake_gate.py preview output/hermes-operations-control-panel output/hermes-operations-control-panel-preview",
-    "python3 -m unittest tests_mvp.py -v",
-    "sha256sum fixtures/hermes-operations-control-panel.json output/hermes-operations-control-panel/*.md output/hermes-operations-control-panel-preview/index.html"
+    "Define the exact public-safe fields allowed in future dashboard status cards.",
+    "Add optional client-side grouping or saved filter presets without external integrations.",
+    "Prepare a separate approval gate before any live adapter, tracker, or memory integration."
+  ],
+  "safety_boundary": [
+    "No external APIs, CDNs, analytics, backend, or server runtime.",
+    "No credentials, API keys, private data, Telegram ingestion, or live memory query.",
+    "No Hermes runtime modification, provider/model changes, cron, watchdogs, or self-evolution.",
+    "GitHub Issues, Notion, and Linear remain blocked pending separate approval."
   ],
   "rollback_notes": [
-    "Remove output/hermes-operations-control-panel-status to roll back IW-2 status export.",
-    "Remove output/hermes-operations-control-panel-app to roll back IW-3 static app build.",
-    "For a GitHub Pages rollback, revert the deployment commit or disable Pages in repository settings.",
-    "Re-run python3 -m unittest tests_mvp.py -v after local rollback to verify the App Builder baseline."
+    "Rollback IW-5 by reverting the deployment commit on main and pushing the revert.",
+    "If the full public surface must be removed, disable GitHub Pages in repository settings.",
+    "Keep local rollback file-based: restore or replace docs/ static files from the prior commit."
   ],
   "acceptance_criteria": [
-    "Generate command creates README and artifacts 00 through 05 for Hermes Operations Control Panel",
-    "Review command returns VERDICT: PASS for the generated IW-1 package",
-    "Preview command writes output/hermes-operations-control-panel-preview/index.html",
-    "Preview index.html contains escaped Markdown content and preserves all expected artifact names",
-    "Generated handoff contains GitHub Issues, Notion, and Linear as blocked items",
-    "Generated package includes no deployment, no external API calls, no package installs, no containers, and no credentials/API keys",
-    "Generated package contains rollback commands and next local-only build checkpoint"
-  ],
-  "done_means": [
-    "All expected Markdown artifacts exist in output/hermes-operations-control-panel",
-    "Review verdict prints PASS with gate checks passed",
-    "Preview writes static local index.html only",
-    "Hashes are recorded for fixture, Markdown artifacts, and preview index",
-    "Blocked items remain visible and require separate approval",
-    "Next practical build step is documented without activating integrations"
-  ],
-  "risks": [],
-  "local_preview": "output/hermes-operations-control-panel-app/index.html"
+    "Current System Status summary is visible at top.",
+    "Status cards can be filtered client-side only.",
+    "Next 3 Actions render from sanitized status.json.",
+    "Last Updated timestamp renders from sanitized status.json.",
+    "Safety Boundary section shows blocked/private gates.",
+    "Mobile readability is improved.",
+    "Everything remains static."
+  ]
 }
